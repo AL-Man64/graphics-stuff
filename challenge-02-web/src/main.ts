@@ -1,7 +1,7 @@
 /* PARAMETERS */
 
 const CLEAR_OPACITY: number = 0.1;
-const CIRCLE_COUNT: number = 32;
+const CIRCLE_COUNT: number = 64;
 const MIN_CIRCLE_RADIUS: number = 2;
 const MAX_CIRCLE_RADIUS: number = 5;
 const MIN_TRAJECTORY_RADIUS: number = 60;
@@ -9,7 +9,8 @@ const MAX_TRAJECTORY_RADIUS: number = 120;
 const COLOR_VARIATION: number = 0.45;
 const MIN_ANGULAR_VELOCITY: number = 0.8;
 const MAX_ANGULAR_VELOCITY: number = 1.6;
-const MOUSE_DELTA: number = -0.01;
+// Dumb name, I love it
+const SUCKINESS: number = 0.05;
 
 /* TYPES */
 
@@ -70,10 +71,22 @@ function main() {
     y: 300,
   };
 
+  let origin_pos = {
+    x: 300,
+    y: 300,
+  };
+
   const update_scene = (delta: number) => {
     // TODO: scene follows the mouse more slowly, kind of like a gravity effect
 
     if (running) {
+      if (mouse.x !== origin_pos.x) {
+        origin_pos.x += (mouse.x - origin_pos.x) * SUCKINESS;
+      }
+      if (mouse.y !== origin_pos.y) {
+        origin_pos.y += (mouse.y - origin_pos.y) * SUCKINESS;
+      }
+
       for (let circle of circles) {
         circle.angle += delta * circle.angular_velocity;
         if (circle.angle >= 2 * Math.PI) {
@@ -91,9 +104,9 @@ function main() {
     ctx.globalAlpha = 1.0;
     for (const circle of circles) {
       const x: number =
-        mouse.x + circle.trajectory_radius * Math.cos(circle.angle);
+        origin_pos.x + circle.trajectory_radius * Math.cos(circle.angle);
       const y: number =
-        mouse.y + circle.trajectory_radius * -Math.sin(circle.angle);
+        origin_pos.y + circle.trajectory_radius * -Math.sin(circle.angle);
 
       ctx.fillStyle = `rgb(${circle.color.r * 255}, ${circle.color.g * 255}, ${circle.color.b * 255})`;
       ctx.beginPath();
@@ -101,6 +114,18 @@ function main() {
       ctx.fill();
     }
   };
+
+  window.addEventListener("keydown", (event: KeyboardEvent) => {
+    if (event.key == " ") {
+      running = false;
+    }
+  });
+
+  window.addEventListener("keyup", (event: KeyboardEvent) => {
+    if (event.key == " ") {
+      running = true;
+    }
+  });
 
   window.addEventListener("resize", (_: UIEvent) => {
     canvas.width = window.innerWidth;
@@ -110,7 +135,6 @@ function main() {
   window.addEventListener("mousemove", (event: MouseEvent) => {
     mouse.x = event.x;
     mouse.y = event.y;
-    update_scene(MOUSE_DELTA);
     draw_scene();
   });
 
