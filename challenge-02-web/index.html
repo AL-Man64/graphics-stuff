@@ -8,7 +8,77 @@
     <title></title>
   </head>
   <body>
+    <div id="parameters">
+      <input
+        type="range"
+        id="updates-per-frame"
+        name="updates-per-frame"
+        min="1"
+        max="12"
+        value="1"
+      />
+      <label for="updates-per-frame">Updates per frame</label>
+      <br />
+
+      <input type="range" id="clear-opacity" name="clear-opacity" />
+      <label for="clear-opacity">Clear opacity</label>
+      <br />
+
+      <input type="range" id="circle-count" name="circle-count" />
+      <label for="circle-count">Circle count</label>
+      <br />
+
+      <input type="range" id="min-circle-radius" name="min-circle-radius" />
+      <label for="min-circle-radius">Minimum circle radius</label>
+      <br />
+
+      <input type="range" id="max-circle-radius" name="max-circle-radius" />
+      <label for="max-circle-radius">Maximum circle radius</label>
+      <br />
+
+      <input
+        type="range"
+        id="min-trajectory-radius"
+        name="min-trajectory-radius"
+      />
+      <label for="min-trajectory-radius">Minimum trajectory radius</label>
+      <br />
+
+      <input
+        type="range"
+        id="max-trajectory-radius"
+        name="max-trajectory-radius"
+      />
+      <label for="max-trajectory-radius">Maximum trajectory radius</label>
+      <br />
+
+      <input type="range" id="color-variation" name="color-variation" />
+      <label for="color-variation">Color variation</label>
+      <br />
+
+      <input
+        type="range"
+        id="min-angular-velocity"
+        name="min-angular-velocity"
+      />
+      <label for="min-angular-velocity">Minimum angular velocity</label>
+      <br />
+
+      <input
+        type="range"
+        id="max-angular-velocity"
+        name="max-angular-velocity"
+      />
+      <label for="max-angular-velocity">Maximum angular velocity</label>
+      <br />
+
+      <input type="range" id="suckiness" name="suckiness" />
+      <label for="suckiness">Suckiness</label>
+      <br />
+    </div>
+
     <canvas id="main-canvas" width="640" height="480"></canvas>
+
     <script type="module" src="/src/main.ts"></script>
   </body>
 </html>

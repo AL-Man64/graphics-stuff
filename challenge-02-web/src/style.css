@@ -4,6 +4,14 @@
   box-sizing: border-box;
 }
 
+#parameters {
+  padding: 1rem;
+  height: 20dvh;
+  border: 2px solid black;
+  columns: 3;
+}
+
 body {
+  height: 100dvh;
   overflow: hidden;
 }
