@@ -1,0 +1,19 @@
+[package]
+name = "challenge-03"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+js-sys = "0.3.69"
+wasm-bindgen = "0.2.92"
+web-sys = { version = "0.3.69", features = [
+  "console",
+  "Window",
+  "Document",
+  "Node",
+  "Element",
+  "HtmlCanvasElement",
+  "CanvasRenderingContext2d",
+  "Event",
+  "MouseEvent",
+] }
